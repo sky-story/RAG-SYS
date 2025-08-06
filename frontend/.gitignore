@@ -1,0 +1,4 @@
+# .gitignore - 前端忽略文件
+node_modules/
+dist/
+.env

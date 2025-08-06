@@ -1,0 +1,4 @@
+# requirements.txt - 后端 Python 依赖列表
+flask
+flask-cors
+pymongo
