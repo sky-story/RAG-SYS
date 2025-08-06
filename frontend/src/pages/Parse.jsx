@@ -62,7 +62,7 @@ const Parse = ({ uploadRecords = [], parseHistory = [], onAddParseRecord, onRemo
         // 添加到解析历史
         onAddParseRecord(result.data);
       } else {
-        alert('解析失败，请重试');
+        alert(`解析失败: ${result.error || '请重试'}`);
       }
     } catch (error) {
       alert(`解析出错: ${error.message}`);

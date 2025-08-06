@@ -46,9 +46,9 @@ const UploadForm = ({ onUploadSuccess }) => {
     const formData = new FormData();
     formData.append("file", task.file);
 
-    // 调用 API（Mock）
+    // 调用真实 API
     uploadFiles(formData)
-      .then(() => {
+      .then((response) => {
         clearInterval(interval);
         setUploadTasks((prev) =>
           prev.map((t) =>
@@ -56,21 +56,28 @@ const UploadForm = ({ onUploadSuccess }) => {
           )
         );
 
-        // 通知父组件上传成功，并保存文件对象用于下载
-        onUploadSuccess({
-          id: task.id,
-          name: task.file.name,
-          size: task.file.size,
-          createdAt: new Date().toISOString(),
-          fileObject: task.file, // 保存原始文件对象
-        });
+        if (response.ok && response.data && response.data.uploaded.length > 0) {
+          // 使用后端返回的真实文件信息
+          const uploadedFile = response.data.uploaded[0];
+          onUploadSuccess({
+            id: uploadedFile.id, // 使用后端返回的真实 ID
+            name: task.file.name, // 原始文件名
+            size: uploadedFile.size || task.file.size,
+            type: uploadedFile.type || task.file.type,
+            createdAt: new Date().toISOString(),
+            fileObject: task.file, // 保存原始文件对象用于立即下载
+          });
+        } else {
+          throw new Error(response.error || '上传失败');
+        }
       })
-      .catch(() => {
+      .catch((error) => {
         clearInterval(interval);
         setUploadTasks((prev) =>
           prev.map((t) => (t.id === task.id ? { ...t, status: "error" } : t))
         );
-        alert(`${task.file.name} 上传失败`);
+        console.error('Upload error:', error);
+        alert(`${task.file.name} 上传失败: ${error.message || error}`);
       });
   };
 
