@@ -5,6 +5,10 @@ config.py - 后端配置文件，存放全局配置（如数据库 URI、文件�
 
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
 
 # 基础配置
 class Config:
@@ -30,6 +34,16 @@ class Config:
     
     # 接口配置
     API_PREFIX = "/api"
+    
+    # OpenAI 配置
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    OPENAI_CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL", "gpt-3.5-turbo")
+    OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
+    
+    # RAG 配置
+    RAG_TOP_K = int(os.getenv("RAG_TOP_K", "3"))
+    RAG_MIN_SIMILARITY = float(os.getenv("RAG_MIN_SIMILARITY", "0.0"))
+    RAG_MAX_CONTEXT_LENGTH = int(os.getenv("RAG_MAX_CONTEXT_LENGTH", "4000"))
     
     # 文件存储相关配置
     FILENAME_MAX_LENGTH = 255

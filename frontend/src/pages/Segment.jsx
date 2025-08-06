@@ -8,9 +8,11 @@ import SegmentList from "../components/SegmentList";
 import TagEditor from "../components/TagEditor";
 import ProgressBar from "../components/ProgressBar";
 import { 
+  createDocumentSegments,
   getDocumentSegments, 
   saveSegmentTags, 
-  batchSaveSegmentTags 
+  batchSaveSegmentTags,
+  getRecommendedTags 
 } from "../utils/segment-api";
 
 const Segment = ({ parseHistory = [] }) => {
@@ -51,19 +53,37 @@ const Segment = ({ parseHistory = [] }) => {
         });
       }, 200);
 
-      const result = await getDocumentSegments(doc.id);
+      // 首先尝试获取已有分段
+      let result = await getDocumentSegments(doc.id);
+      
+      // 如果没有分段，则创建分段
+      if (!result.ok || !result.data?.segments?.length) {
+        console.log('未找到已有分段，开始创建分段...');
+        const createResult = await createDocumentSegments(doc.id);
+        
+        if (createResult.ok) {
+          console.log('分段创建成功');
+          // 重新获取分段数据
+          result = await getDocumentSegments(doc.id);
+        } else {
+          throw new Error(createResult.error || '创建分段失败');
+        }
+      }
       
       clearInterval(progressInterval);
       setLoadingProgress(100);
 
-      if (result.ok) {
+      if (result.ok && result.data?.segments) {
         setDocumentData(result.data);
         setSegments(result.data.segments);
         setCurrentPage(1);
         setSelectedSegments([]);
         setSearchTerm("");
+      } else {
+        throw new Error('获取分段数据失败');
       }
     } catch (error) {
+      console.error('加载文档失败:', error);
       alert(`加载文档失败: ${error.message}`);
     } finally {
       setIsLoading(false);
@@ -141,7 +161,7 @@ const Segment = ({ parseHistory = [] }) => {
 
   // 获取当前页面的段落用于高亮
   const currentPageSegments = segments
-    .filter(segment => segment.pageNumber === currentPage)
+    .filter(segment => segment.order === currentPage)
     .map(segment => segment.id);
 
   return (
@@ -155,7 +175,7 @@ const Segment = ({ parseHistory = [] }) => {
           <select
             value={selectedDocument?.id || ""}
             onChange={(e) => {
-              const doc = parseHistory.find(d => d.id === parseInt(e.target.value));
+              const doc = parseHistory.find(d => d.id === e.target.value);
               if (doc) handleSelectDocument(doc);
             }}
             className="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"

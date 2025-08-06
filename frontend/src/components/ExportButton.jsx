@@ -4,7 +4,7 @@ ExportButton.jsx - 导出按钮组件
 */
 
 import React, { useState } from "react";
-import { exportQARecords } from "../utils/qa-api";
+import { exportQAHistory } from "../utils/qa-api";
 
 const ExportButton = ({ 
   selectedRecords = [], 
@@ -28,7 +28,7 @@ const ExportButton = ({
         return;
       }
 
-      await exportQARecords(recordsToExport, format);
+      await exportQAHistory(format);
       
       const count = recordsToExport.length;
       const type = useSelected ? '选中' : '全部';

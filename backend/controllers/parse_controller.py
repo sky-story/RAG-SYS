@@ -66,9 +66,13 @@ class ParseController:
                 # 生成摘要
                 summary = parsing_service.get_text_summary(result, 200)
                 
+                # 生成一个唯一的文件ID用于临时上传文件
+                from bson import ObjectId
+                temp_file_id = str(ObjectId())
+                
                 # 保存解析结果到数据库
                 parse_id = self.parse_model.save_parsed_text(
-                    file_id="temp_upload",  # 临时上传文件没有文件ID
+                    file_id=temp_file_id,  # 使用生成的唯一ID作为file_id
                     original_name=file.filename,
                     text_content=result,
                     file_type=file_ext,

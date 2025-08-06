@@ -30,9 +30,15 @@ def create_app(config_name='development'):
     # 注册蓝图
     from routes.upload_routes import upload_bp
     from routes.parse_routes import parse_bp
+    from routes.segment_routes import segment_bp
+    from routes.embedding_routes import embedding_bp
+    from routes.qa_routes import qa_bp
     
     app.register_blueprint(upload_bp)
     app.register_blueprint(parse_bp)
+    app.register_blueprint(segment_bp)
+    app.register_blueprint(embedding_bp)
+    app.register_blueprint(qa_bp)
     
     # 根路由 - API信息
     @app.route('/')
@@ -52,7 +58,25 @@ def create_app(config_name='development'):
                 'parse_history': '/api/parse/history',
                 'parse_content': '/api/parse/<parse_id>',
                 'parse_download': '/api/parse/download/<parse_id>',
-                'parse_search': '/api/parse/search'
+                'parse_search': '/api/parse/search',
+                'segment_create': '/api/segment/create/<file_id>',
+                'segment_file': '/api/segment/file/<file_id>',
+                'segment_tag': '/api/segment/tag',
+                'segment_tag_batch': '/api/segment/tag/batch',
+                'segment_recommend': '/api/segment/recommend/<segment_id>',
+                'segment_search': '/api/segment/search',
+                'segment_tags': '/api/segment/tags',
+                'segment_stats': '/api/segment/stats',
+                'embed_create': '/api/embed/<file_id>',
+                'embed_info': '/api/embed/info/<file_id>',
+                'embed_delete': '/api/embed/<file_id>',
+                'embed_list': '/api/embed/list',
+                'embed_search': '/api/embed/search/<file_id>',
+                'embed_search_multi': '/api/embed/search/multi',
+                'embed_health': '/api/embed/health',
+                'qa_rag': '/api/qa/rag',
+                'qa_health': '/api/qa/health',
+                'qa_available_files': '/api/qa/available-files'
             }
         })
     

@@ -19,8 +19,33 @@ const TagEditor = ({
 
   // 获取推荐标签
   useEffect(() => {
-    getRecommendedTags().then(setRecommendedTags);
-  }, []);
+    if (selectedSegments.length === 1) {
+      // 只为单个段落获取推荐标签
+      const segmentId = selectedSegments[0];
+      getRecommendedTags(segmentId)
+        .then(result => {
+          if (result.ok) {
+            setRecommendedTags(result.data.recommendedTags || []);
+          }
+        })
+        .catch(error => {
+          console.error('获取推荐标签失败:', error);
+          // 使用默认推荐标签
+          setRecommendedTags([
+            "定义", "概念", "原理", "方法", "应用", "实验", "结论", 
+            "背景", "设备", "工艺", "安全", "环境", "管理", "设计",
+            "化工", "反应器", "传质", "传热", "分离", "控制"
+          ]);
+        });
+    } else {
+      // 多选或无选择时，使用通用推荐标签
+      setRecommendedTags([
+        "定义", "概念", "原理", "方法", "应用", "实验", "结论", 
+        "背景", "设备", "工艺", "安全", "环境", "管理", "设计",
+        "化工", "反应器", "传质", "传热", "分离", "控制"
+      ]);
+    }
+  }, [selectedSegments]);
 
   // 获取当前选中段落的信息
   const selectedSegmentData = segments.filter(segment => 
@@ -111,8 +136,8 @@ const TagEditor = ({
           <div className="bg-blue-50 p-3 rounded-lg">
             <h4 className="text-sm font-medium mb-2">当前段落</h4>
             <p className="text-sm text-gray-700 mb-2">
-              {selectedSegmentData[0]?.content.substring(0, 100)}
-              {selectedSegmentData[0]?.content.length > 100 ? '...' : ''}
+              {selectedSegmentData[0]?.text ? selectedSegmentData[0].text.substring(0, 100) : '无文本内容'}
+              {selectedSegmentData[0]?.text && selectedSegmentData[0].text.length > 100 ? '...' : ''}
             </p>
             {selectedSegmentData[0]?.tags && selectedSegmentData[0].tags.length > 0 && (
               <div className="flex flex-wrap gap-1">

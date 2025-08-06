@@ -18,20 +18,39 @@ const SegmentList = ({
 }) => {
   // 过滤段落
   const filteredSegments = useMemo(() => {
+    // 调试信息
+    console.log('🔍 SegmentList过滤调试:', {
+      segments: segments,
+      segmentsLength: segments?.length || 0,
+      searchTerm: searchTerm,
+      highlightedPage: highlightedPage,
+      segmentsType: typeof segments,
+      isArray: Array.isArray(segments)
+    });
+    
+    // 确保segments是数组
+    if (!Array.isArray(segments)) {
+      console.warn('⚠️ segments不是数组:', segments);
+      return [];
+    }
+    
     let filtered = segments;
     
     // 关键词搜索
     if (searchTerm.trim()) {
       filtered = filtered.filter(segment =>
-        segment.content.toLowerCase().includes(searchTerm.toLowerCase())
+        segment.text && segment.text.toLowerCase().includes(searchTerm.toLowerCase())
       );
+      console.log('🔍 搜索过滤后:', filtered.length);
     }
     
-    // 页面过滤（如果指定了高亮页面）
-    if (highlightedPage) {
-      filtered = filtered.filter(segment => segment.pageNumber === highlightedPage);
-    }
+    // 页面过滤（暂时禁用，段落分段不需要按页面过滤）
+    // if (highlightedPage) {
+    //   filtered = filtered.filter(segment => segment.order === highlightedPage);
+    //   console.log('🔍 页面过滤后:', filtered.length);
+    // }
     
+    console.log('🔍 最终过滤结果:', filtered.length);
     return filtered;
   }, [segments, searchTerm, highlightedPage]);
 
@@ -123,7 +142,7 @@ const SegmentList = ({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                      第 {segment.pageNumber} 页 · 段落 {segment.id}
+                      第 {segment.order} 段 · 段落 {segment.segment_id}
                     </span>
                     {currentEditingSegment === segment.id && (
                       <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">
@@ -133,15 +152,15 @@ const SegmentList = ({
                   </div>
                   
                   <p className="text-sm text-gray-800 leading-relaxed mb-2">
-                    {searchTerm ? (
+                    {searchTerm && segment.text ? (
                       // 高亮搜索关键词
-                      segment.content.split(new RegExp(`(${searchTerm})`, 'gi')).map((part, index) =>
+                      segment.text.split(new RegExp(`(${searchTerm})`, 'gi')).map((part, index) =>
                         part.toLowerCase() === searchTerm.toLowerCase() ? (
                           <mark key={index} className="bg-yellow-200">{part}</mark>
                         ) : part
                       )
                     ) : (
-                      segment.content
+                      segment.text || '无文本内容'
                     )}
                   </p>
                   

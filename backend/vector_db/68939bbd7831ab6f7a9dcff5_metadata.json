@@ -1,0 +1,124 @@
+[
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_1_7401bfec",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 1,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1670,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "=== 第 1 页 === 无机盐工业 Inorganic Chemicals Industry ISSN 1006-4990,CN 12-1069/TQ 《无机盐工业》网络首发论文 题目： 亚铁氰化..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_2_7bec52a2",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 2,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1069,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "盐湖卤水 Preparation of potassium copper ferrocyanide composite hydrogels and rubidium adsorption study ..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_3_65102ef1",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 3,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1984,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "网络首发时间：2025-08-01 15:47:10 网络首发地址：https://link.cnki.net/urlid/12.1069.TQ.20250801.1345.001 === 第 3 页..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_4_aabffd3b",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 4,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1887,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "为解决这 一类问题，研究主要倾向于开发金属亚铁氰化物复合材料，如以海藻酸钠(SA)[7]、聚丙烯 腈(PAN)[8]、聚乙烯醇(PVA)[9]和果胶(Pectin)[10]等有机聚合物基质作为载体。值..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_5_c8ba6074",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 5,
+    "tags": [
+      "化学反应"
+    ],
+    "file_name": "pdf",
+    "character_count": 1934,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "将 10 mg 有效吸附剂加入到 10 mg/L 的 Rb+溶液中吸附，在 0- 24 h 内不同时间点取样，确定平衡吸附时间，使用非线性准一级和准二级动力学分析 GPP- KCuFC 吸附 Rb+的..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_6_acfcc728",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 6,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1919,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "相比较于未负载吸附剂 KCuFC 的 GPP (a)，GPP-KCuFC (b)截面显示出存在明显分布的颗 粒，并且后者截面要更为粗糙，这是由于 KCuFC 的加入影响了水凝胶内部网络的交联。此 外，..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_7_f4ddbe3e",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 7,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1978,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "1000 800 600 400 200 0 强度 结合能/(eV) 吸附前 吸附后 Cu 2p Fe 2p O 1s N 1sCa 2p K 2p C 1s Rb 3d 全谱 116 114 112..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_8_e46cc812",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 8,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1990,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "Langmuir 等温线假设主要有：单层吸附、吸 附位点均匀分布、吸附能恒定以及吸附质之间的相互作用可忽略[26]。对于吸附 Rb+的过程 === 第 9 页 === 8 而言，从宏观角度看，GPP-..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_9_26e0da07",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 9,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1950,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "由于二者的水合离子半径接近，因此 Rb+可以 取代 K+原本占据的晶格位置。从 Rb 3d 和 K 2p 的 XPS 图谱中可以看出，在吸附后，出现 Rb 的新峰而 K 峰变弱，这正是二者之间发生的离..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_10_a9f90b88",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 10,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 1949,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "=== 第 12 页 === 11 5 10 20 30 40 50 0 20 40 60 80 100 0 20 40 60 80 100 脱附率/(%) R (%) D (%) 质量/(mg) 去..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_11_62b72752",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 11,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 716,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "表 6 GPP-KCuFC 在盐湖卤水中 Rb+相对其他无机离子的分离因子 Table 6 Separation factor of GPP-KCuFC for Rb⁺ relative to oth..."
+  },
+  {
+    "segment_id": "68939bbd7831ab6f7a9dcff5_12_fcd520e3",
+    "file_id": "68939bbd7831ab6f7a9dcff5",
+    "order": 12,
+    "tags": [],
+    "file_name": "pdf",
+    "character_count": 5948,
+    "created_at": "2025-08-06T18:15:35.291000",
+    "text_preview": "参考文献 [1] XING Peng, WANG Chengyan, CHEN Yongqiang, et al. Rubidium extraction from mineral and brine..."
+  }
+]

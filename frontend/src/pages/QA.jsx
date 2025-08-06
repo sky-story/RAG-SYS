@@ -8,6 +8,7 @@ import HistoryPanel from "../components/HistoryPanel";
 import { 
   askQuestion, 
   fetchQAHistory, 
+  saveQARecord,
   deleteQARecord, 
   batchDeleteQARecords 
 } from "../utils/qa-api";
@@ -41,20 +42,35 @@ const QA = () => {
     setSelectedRecord(null); // 清空当前查看的记录
 
     try {
+      console.log("发送问题:", question, "标签:", tags);
       const result = await askQuestion(question, tags);
       
       if (result.ok) {
         const newRecord = result.data;
+        
+        // 保存到本地存储
+        await saveQARecord(newRecord);
         
         // 添加到历史记录
         setQaHistory(prev => [newRecord, ...prev]);
         
         // 设置为当前显示的记录
         setSelectedRecord(newRecord);
+        
+        console.log("问答成功:", newRecord);
       } else {
-        alert('提问失败，请重试');
+        console.error("问答失败:", result.error);
+        // 即使失败也显示错误记录
+        if (result.data) {
+          await saveQARecord(result.data);
+          setQaHistory(prev => [result.data, ...prev]);
+          setSelectedRecord(result.data);
+        } else {
+          alert('提问失败，请重试');
+        }
       }
     } catch (error) {
+      console.error("问答异常:", error);
       alert(`提问出错: ${error.message}`);
     } finally {
       setIsLoading(false);

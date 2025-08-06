@@ -62,11 +62,22 @@ const ChatBox = ({
           <div className="text-center text-gray-500 py-8">
             <div className="text-4xl mb-4">🤖</div>
             <p className="text-lg mb-2">化工知识助手</p>
-            <p className="text-sm">
-              我可以帮您解答化工相关的专业问题
+            <p className="text-sm mb-4">
+              基于 RAG 技术的智能问答系统
               <br />
-              包括工艺流程、设备原理、安全规范等
+              可以根据上传的文档内容提供专业解答
             </p>
+            
+            {/* RAG 功能介绍 */}
+            <div className="bg-blue-50 p-4 rounded-lg text-left max-w-md mx-auto">
+              <div className="text-sm text-blue-800 font-medium mb-2">💡 智能特性</div>
+              <div className="space-y-1 text-xs text-blue-700">
+                <div>📚 基于文档内容的精准回答</div>
+                <div>🔍 智能检索相关段落</div>
+                <div>🤖 OpenAI GPT-3.5 驱动</div>
+                <div>📊 回答质量评估</div>
+              </div>
+            </div>
           </div>
         ) : (
           // 对话内容
@@ -108,11 +119,63 @@ const ChatBox = ({
                       <pre className="text-sm text-gray-800 whitespace-pre-wrap font-sans">
                         {currentRecord.answer}
                       </pre>
+                      
+                      {/* RAG 信息展示 */}
+                      {currentRecord.retrievalResults && (
+                        <div className="mt-3 p-2 bg-blue-50 rounded border text-xs">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-medium text-blue-700">📚 检索信息</span>
+                            {currentRecord.responseType === 'rag_based' && (
+                              <span className="px-1 py-0.5 bg-blue-200 text-blue-800 rounded text-xs">RAG</span>
+                            )}
+                          </div>
+                          <div className="text-gray-600">
+                            找到 {currentRecord.retrievalResults.usedSegments} 个相关段落
+                            {currentRecord.retrievalResults.searchTime && (
+                              <span> · 搜索用时 {currentRecord.retrievalResults.searchTime}s</span>
+                            )}
+                          </div>
+                          
+                          {/* 引用段落 */}
+                          {currentRecord.retrievalResults.citedSegments && currentRecord.retrievalResults.citedSegments.length > 0 && (
+                            <div className="mt-2">
+                              <span className="font-medium text-gray-700">📖 参考段落:</span>
+                              <div className="mt-1 space-y-1">
+                                {currentRecord.retrievalResults.citedSegments.slice(0, 2).map((segment, index) => (
+                                  <div key={index} className="pl-2 border-l-2 border-blue-200">
+                                    <div className="text-gray-600">
+                                      {segment.text && segment.text.length > 80 
+                                        ? `${segment.text.substring(0, 80)}...` 
+                                        : segment.text || '无内容预览'
+                                      }
+                                    </div>
+                                    {segment.similarity && (
+                                      <div className="text-gray-500 text-xs">
+                                        相似度: {(segment.similarity * 100).toFixed(1)}%
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="flex justify-between mt-1">
-                      <span className="text-xs text-gray-500">
-                        AI助手
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500">AI助手</span>
+                        {currentRecord.generationResults?.model && (
+                          <span className="text-xs text-gray-500">
+                            · {currentRecord.generationResults.model}
+                          </span>
+                        )}
+                        {currentRecord.totalTime && (
+                          <span className="text-xs text-gray-500">
+                            · {currentRecord.totalTime}s
+                          </span>
+                        )}
+                      </div>
                       {currentRecord.confidence && (
                         <span className="text-xs text-gray-500">
                           置信度: {currentRecord.confidence}%
